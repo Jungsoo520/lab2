@@ -60,42 +60,45 @@ library ieee;
 
 
 entity top_basys3 is
-	port(
-		-- 7-segment display segments (cathodes CG ... CA)
-		seg		:	out std_logic_vector(6 downto 0);  -- seg(6) = CG, seg(0) = CA
+  port(
+    -- 7-segment display segments (cathodes CG ... CA)
+    seg   : out std_logic_vector(6 downto 0);  -- seg(6)=CG, seg(0)=CA (active low)
 
-		-- 7-segment display active-low enables (anodes)
-		an      :	out std_logic_vector(3 downto 0);
+    -- 7-segment display active-low enables (anodes)
+    an    : out std_logic_vector(3 downto 0);
 
-		-- Switches
-		sw		:	in  std_logic_vector(3 downto 0);
-		
-		-- Buttons
-		btnC	:	in	std_logic
+    -- Switches
+    sw    : in  std_logic_vector(3 downto 0);
 
-	);
+    -- Buttons
+    btnC  : in  std_logic
+  );
 end top_basys3;
 
-architecture top_basys3_arch of top_basys3 is 
-	
-  -- declare the component of your top-level design
+architecture top_basys3_arch of top_basys3 is
 
+  component sevenSegDecoder is
+    port(
+      i_S : in  std_logic_vector(3 downto 0);
+      o_S : out std_logic_vector(6 downto 0)
+    );
+  end component;
 
-  -- create wire to connect button to 7SD enable (active-low)
+  signal w_btnC_n : std_logic;
 
-  
 begin
-	-- PORT MAPS ----------------------------------------
 
-	--	Port map: wire your component up to the switches and seven-segment display cathodes
-	-----------------------------------------------------	
-	
-	
-	-- CONCURRENT STATEMENTS ----------------------------
-	
-	-- wire up active-low 7SD anode (active low) to button (active-high)
-	-- display 7SD 0 only when button pushed
-	-- other 7SD are kept off
-	-----------------------------------------------------
-	
+  -- Port map decoder: switches -> segments
+  u_dec : sevenSegDecoder
+    port map (
+      i_S => sw,
+      o_S => seg
+    );
+
+  -- Button enables display 0 only (active-low anodes)
+  w_btnC_n <= not btnC;
+
+  -- an(0) active when button pressed, others off
+  an <= "111" & w_btnC_n;
+
 end top_basys3_arch;
