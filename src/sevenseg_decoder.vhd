@@ -1,16 +1,17 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sevenseg_decoder is
+entity sevenSegDecoder is
   port(
     i_S : in  std_logic_vector(3 downto 0);
     o_S : out std_logic_vector(6 downto 0)
   );
-end sevenseg_decoder;
+end sevenSegDecoder;
 
-architecture behavioral of sevenseg_decoder is
+architecture behavioral of sevenSegDecoder is
 begin
-  -- o_S = g f e d c b a, active low
+  -- order: g f e d c b a
+  -- active low: 0 = ON, 1 = OFF
   with i_S select
     o_S <=
       "1000000" when "0000", -- 0
@@ -25,9 +26,9 @@ begin
       "0010000" when "1001", -- 9
       "0001000" when "1010", -- A
       "0000011" when "1011", -- b
-      "0100111" when "1100", -- c
+      "1000110" when "1100", -- C
       "0100001" when "1101", -- d
       "0000110" when "1110", -- E
       "0001110" when "1111", -- F
-      "1111111" when others; -- all off
+      "1111111" when others;
 end behavioral;

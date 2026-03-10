@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity sevenseg_decoder_tb is
 end sevenseg_decoder_tb;
 
-architecture tb of sevensegDecoder_tb is
+architecture tb of sevenseg_decoder_tb is
 
   signal i_S : std_logic_vector(3 downto 0);
   signal o_S : std_logic_vector(6 downto 0);
@@ -36,7 +36,6 @@ begin
     i_S <= "1101"; wait for 10 ns;
     i_S <= "1110"; wait for 10 ns;
     i_S <= "1111"; wait for 10 ns;
-
     wait;
   end process;
 
