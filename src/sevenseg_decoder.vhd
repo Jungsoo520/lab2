@@ -1,14 +1,14 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sevenSegDecoder is
+entity sevenseg_decoder is
   port(
     i_S : in  std_logic_vector(3 downto 0);
     o_S : out std_logic_vector(6 downto 0)
   );
-end sevenSegDecoder;
+end sevenseg_decoder;
 
-architecture behavioral of sevenSegDecoder is
+architecture behavioral of sevenseg_decoder is
 begin
   -- o_S = g f e d c b a, active low
   with i_S select

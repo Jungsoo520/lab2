@@ -2,10 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity sevenSegDecoder_tb is
-end sevenSegDecoder_tb;
+entity sevenseg_decoder_tb is
+end sevenseg_decoder_tb;
 
-architecture tb of sevenSegDecoder_tb is
+architecture tb of sevensegDecoder_tb is
 
   signal i_S : std_logic_vector(3 downto 0);
   signal o_S : std_logic_vector(6 downto 0);
